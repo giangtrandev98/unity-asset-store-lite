@@ -30,7 +30,7 @@
             transform: translateY(-10px);
         }
         .card-img-top {
-            height: 150px;
+            height: 100px;
             object-fit: cover;
             border-bottom: 2px solid #007bff;
         }
@@ -101,6 +101,10 @@
         .video-ad.right {
             right: 10px;
         }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="p-4">
@@ -132,7 +136,14 @@
         </div>
 
         <!-- Khu vực hiển thị asset -->
-        <div id="assetContainer" class="row row-cols-1 row-cols-md-4 g-3"></div>
+        <div id="assetContainer" class="row row-cols-1 row-cols-md-5 g-2"></div>
+
+        <!-- Phân trang -->
+        <div class="pagination">
+            <button class="btn btn-primary" id="prevPage">⬅️ Trang trước</button>
+            <span id="pageIndicator" class="mx-3"></span>
+            <button class="btn btn-primary" id="nextPage">➡️ Trang sau</button>
+        </div>
     </div>
 </div>
 
@@ -159,17 +170,27 @@
     const assetContainer = document.getElementById('assetContainer');
     const searchInput = document.getElementById('searchInput');
     const categoryButtons = document.querySelectorAll('#categoryButtons button');
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    const pageIndicator = document.getElementById('pageIndicator');
 
     let currentCategory = 'all';
+    let currentPage = 1;
+    const itemsPerPage = 10;
 
     function renderAssets(filterText = '', category = 'all') {
         assetContainer.innerHTML = '';
-
-        assets.filter(asset => {
+        const filteredAssets = assets.filter(asset => {
             const matchesText = asset.name.toLowerCase().includes(filterText.toLowerCase()) || asset.description.toLowerCase().includes(filterText.toLowerCase());
             const matchesCategory = category === 'all' || asset.category === category;
             return matchesText && matchesCategory;
-        }).forEach(asset => {
+        });
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedAssets = filteredAssets.slice(start, end);
+
+        paginatedAssets.forEach(asset => {
             let imageUrl = asset.image;
             const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
             const match = imageUrl.match(googleDrivePattern);
@@ -179,7 +200,7 @@
             }
 
             assetContainer.innerHTML += `
-                <div class="col mb-4">
+                <div class="col mb-2">
                     <div class="card">
                         <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
                         <div class="card-body">
@@ -190,27 +211,41 @@
                     </div>
                 </div>`;
         });
+
+        const totalPages = Math.ceil(filteredAssets.length / itemsPerPage);
+        pageIndicator.textContent = `Trang ${currentPage} / ${totalPages}`;
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
     }
 
-    // Sự kiện tìm kiếm
     searchInput.addEventListener('input', () => {
-        const searchText = searchInput.value;
-        renderAssets(searchText, currentCategory);
+        currentPage = 1;
+        renderAssets(searchInput.value, currentCategory);
     });
 
-    // Sự kiện cho các nút danh mục
     categoryButtons.forEach(button => {
         button.addEventListener('click', () => {
             currentCategory = button.getAttribute('data-category');
+            currentPage = 1;
             renderAssets(searchInput.value, currentCategory);
-
-            // Cập nhật trạng thái nút
             categoryButtons.forEach(btn => btn.classList.remove('btn-primary'));
             button.classList.add('btn-primary');
         });
     });
 
-    // Hiển thị ban đầu
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderAssets(searchInput.value, currentCategory);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentPage++;
+        renderAssets(searchInput.value, currentCategory);
+    });
+
     renderAssets();
 </script>
 
