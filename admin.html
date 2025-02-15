@@ -130,19 +130,59 @@
     <div id="assetContainer" class="row row-cols-1 row-cols-md-4 g-3"></div>
 </div>
 
+<!-- Modal chỉnh sửa asset -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa Asset</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editAssetForm">
+                    <input type="hidden" id="editIndex">
+                    <div class="mb-3">
+                        <label for="editName" class="form-label">Tên Asset</label>
+                        <input type="text" class="form-control" id="editName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDesc" class="form-label">Mô tả</label>
+                        <input type="text" class="form-control" id="editDesc" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editImage" class="form-label">URL Ảnh</label>
+                        <input type="url" class="form-control" id="editImage" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDownload" class="form-label">URL Tải Xuống</label>
+                        <input type="url" class="form-control" id="editDownload" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCategory" class="form-label">Danh mục</label>
+                        <select id="editCategory" class="form-select" required>
+                            <option value="3D">3D</option>
+                            <option value="2D">2D</option>
+                            <option value="UI">UI</option>
+                            <option value="Animation">Animation</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💾 Cập nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer>
     &copy; 2024 Unity Asset Store Lite | Powered by ChatGPT 4.0 🚀
 </footer>
 
 <script>
-    // Lấy dữ liệu asset từ localStorage
     let assets = JSON.parse(localStorage.getItem('assets')) || [];
     const assetContainer = document.getElementById('assetContainer');
-    const addAssetForm = document.getElementById('addAssetForm');
 
     function renderAssets() {
         assetContainer.innerHTML = '';
-
         assets.forEach((asset, index) => {
             let imageUrl = asset.image;
             const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
@@ -151,15 +191,14 @@
                 const fileId = match[1];
                 imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
             }
-
             assetContainer.innerHTML += `
                 <div class="col mb-4">
                     <div class="card">
                         <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
                         <div class="card-body">
                             <h6 class="card-title">${asset.name}</h6>
-                            <p class="card-text"><small class="text-muted">Danh mục: ${asset.category || 'Không xác định'}</small></p>
-                            <button class="btn btn-warning btn-sm" onclick="editAsset(${index})">✏️ Sửa</button>
+                            <p class="card-text"><small class="text-muted">Danh mục: ${asset.category}</small></p>
+                            <button class="btn btn-warning btn-sm" onclick="openEditModal(${index})">✏️ Sửa</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteAsset(${index})">🗑️ Xóa</button>
                         </div>
                     </div>
@@ -167,58 +206,34 @@
         });
     }
 
-    // Xử lý thêm asset mới
-    addAssetForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('assetName').value;
-        const description = document.getElementById('assetDesc').value;
-        const image = document.getElementById('assetImage').value;
-        const download = document.getElementById('assetDownload').value;
-        const category = document.getElementById('assetCategory').value;
-
-        const newAsset = {
-            id: Date.now(),
-            name,
-            description,
-            image,
-            download,
-            category
-        };
-
-        assets.push(newAsset);
-        localStorage.setItem('assets', JSON.stringify(assets));
-        renderAssets();
-        addAssetForm.reset();
-        alert('🎉 Asset đã được thêm thành công với danh mục: ' + category);
-    });
-
-    // Chỉnh sửa asset
-    function editAsset(index) {
+    function openEditModal(index) {
         const asset = assets[index];
-        const newName = prompt('Nhập tên mới:', asset.name);
-        const newDesc = prompt('Nhập mô tả mới:', asset.description);
-        const newImage = prompt('Nhập URL ảnh mới:', asset.image);
-        const newDownload = prompt('Nhập URL tải xuống mới:', asset.download);
-        const newCategory = prompt('Nhập danh mục mới (3D, 2D, UI, Animation):', asset.category);
-
-        if (newName && newDesc && newImage && newDownload && newCategory) {
-            assets[index] = {
-                ...asset,
-                name: newName,
-                description: newDesc,
-                image: newImage,
-                download: newDownload,
-                category: newCategory
-            };
-            localStorage.setItem('assets', JSON.stringify(assets));
-            renderAssets();
-            alert('🔧 Asset đã được cập nhật thành công!');
-        } else {
-            alert('⚠️ Cập nhật thất bại. Hãy nhập đầy đủ thông tin!');
-        }
+        document.getElementById('editIndex').value = index;
+        document.getElementById('editName').value = asset.name;
+        document.getElementById('editDesc').value = asset.description;
+        document.getElementById('editImage').value = asset.image;
+        document.getElementById('editDownload').value = asset.download;
+        document.getElementById('editCategory').value = asset.category;
+        new bootstrap.Modal(document.getElementById('editModal')).show();
     }
 
-    // Xóa asset
+    document.getElementById('editAssetForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const index = document.getElementById('editIndex').value;
+        assets[index] = {
+            ...assets[index],
+            name: document.getElementById('editName').value,
+            description: document.getElementById('editDesc').value,
+            image: document.getElementById('editImage').value,
+            download: document.getElementById('editDownload').value,
+            category: document.getElementById('editCategory').value
+        };
+        localStorage.setItem('assets', JSON.stringify(assets));
+        renderAssets();
+        bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+        alert('🔧 Asset đã được cập nhật thành công!');
+    });
+
     function deleteAsset(index) {
         if (confirm('🗑️ Bạn có chắc chắn muốn xóa asset này không?')) {
             assets.splice(index, 1);
@@ -228,9 +243,8 @@
         }
     }
 
-    // Hiển thị ban đầu
     renderAssets();
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
