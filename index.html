@@ -169,13 +169,14 @@
 <script>
     // Lấy dữ liệu asset từ assets.json
     let assets = [];
-    fetch('assets.json')
-        .then(response => response.json())
-        .then(data => {
-            assets = data;
-            renderAssets();
-        })
-        .catch(error => console.error('Không thể tải dữ liệu assets.json:', error));
+    fetch(`assets.json?v=${new Date().getTime()}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log('Dữ liệu assets:', data);
+        localStorage.setItem('assets', JSON.stringify(data)); // Cập nhật dữ liệu trong localStorage
+        renderAssets();
+    })
+    .catch(error => console.error('Lỗi tải assets:', error));
 
     const assetContainer = document.getElementById('assetContainer');
     const searchInput = document.getElementById('searchInput');
