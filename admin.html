@@ -16,7 +16,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: background 0.5s ease;
         }
         .card {
             border: none;
@@ -91,7 +90,7 @@
         }
     </style>
 </head>
-<body class="p-4" id="adminContent" style="display:none;">
+<body class="p-4">
 
 <div class="container">
     <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite - Admin</h2>
@@ -142,6 +141,7 @@
                 throw new Error('Không thể tải assets.json');
             }
             let assets = await response.json();
+
             const assetContainer = document.getElementById('assetContainer');
 
             function renderAssets() {
@@ -172,7 +172,7 @@
 
             window.addEventListener('DOMContentLoaded', renderAssets);
 
-            document.getElementById('addAssetForm').addEventListener('submit', async function (e) {
+            document.getElementById('addAssetForm').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const newAsset = {
                     id: Date.now(),
@@ -187,7 +187,7 @@
                 this.reset();
             });
 
-            window.editAsset = async function(index) {
+            window.editAsset = function(index) {
                 const asset = assets[index];
                 const newName = prompt('Nhập tên mới:', asset.name);
                 const newDesc = prompt('Nhập mô tả mới:', asset.description);
@@ -207,7 +207,7 @@
                 }
             };
 
-            window.deleteAsset = async function(index) {
+            window.deleteAsset = function(index) {
                 if (confirm('Bạn có chắc chắn muốn xóa asset này?')) {
                     assets.splice(index, 1);
                     renderAssets();
