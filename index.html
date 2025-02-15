@@ -16,7 +16,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
+            overflow: hidden;
         }
         .card {
             border: none;
@@ -44,16 +44,19 @@
         .btn-primary:hover {
             transform: scale(1.05);
         }
-        .container {
+        .main-content {
             flex: 1;
+            overflow-y: auto;
         }
         footer {
             background: #007bff;
             color: #fff;
             text-align: center;
             padding: 1rem 0;
-            margin-top: auto;
-            position: relative;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
         }
         #categoryButtons button {
             margin-right: 10px;
@@ -77,7 +80,7 @@
             width: 60%;
         }
         .video-ad {
-            position: absolute;
+            position: fixed;
             bottom: 80px;
             width: 300px;
             height: 300px;
@@ -107,28 +110,30 @@
     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 
-<div class="container">
-    <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite</h2>
+<div class="main-content">
+    <div class="container">
+        <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite</h2>
 
-    <!-- Khu vực tìm kiếm và phân loại bằng nút -->
-    <div id="filterSection" class="mb-4">
-        <input type="text" id="searchInput" class="form-control mb-3" placeholder="🔍 Tìm kiếm asset...">
-        <div id="categoryButtons" class="d-flex flex-wrap">
-            <button class="btn btn-outline-primary btn-primary" data-category="all">Tất cả</button>
-            <button class="btn btn-outline-primary" data-category="3D">3D</button>
-            <button class="btn btn-outline-primary" data-category="2D">2D</button>
-            <button class="btn btn-outline-primary" data-category="UI">UI</button>
-            <button class="btn btn-outline-primary" data-category="Animation">Animation</button>
+        <!-- Khu vực tìm kiếm và phân loại bằng nút -->
+        <div id="filterSection" class="mb-4">
+            <input type="text" id="searchInput" class="form-control mb-3" placeholder="🔍 Tìm kiếm asset...">
+            <div id="categoryButtons" class="d-flex flex-wrap">
+                <button class="btn btn-outline-primary btn-primary" data-category="all">Tất cả</button>
+                <button class="btn btn-outline-primary" data-category="3D">3D</button>
+                <button class="btn btn-outline-primary" data-category="2D">2D</button>
+                <button class="btn btn-outline-primary" data-category="UI">UI</button>
+                <button class="btn btn-outline-primary" data-category="Animation">Animation</button>
+            </div>
         </div>
+
+        <!-- Khu vực hiển thị asset -->
+        <div id="assetContainer" class="row row-cols-1 row-cols-md-4 g-3"></div>
     </div>
 
-    <!-- Khu vực hiển thị asset -->
-    <div id="assetContainer" class="row row-cols-1 row-cols-md-4 g-3"></div>
-</div>
-
-<!-- Quảng cáo ngay trên footer -->
-<div class="ad-banner">
-    <iframe src="https://www.google.com/adsense/start/" style="width:100%; height:150px; border:none; background-color:transparent;"></iframe>
+    <!-- Quảng cáo ngay trên footer -->
+    <div class="ad-banner">
+        <iframe src="https://www.google.com/adsense/start/" style="width:100%; height:150px; border:none; background-color:transparent;"></iframe>
+    </div>
 </div>
 
 <footer>
