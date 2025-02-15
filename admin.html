@@ -16,62 +16,70 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background 0.5s ease;
         }
         .card {
             border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             background: #fff;
         }
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
         }
         .card-img-top {
             height: 150px;
             object-fit: cover;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 3px solid #007bff;
+            filter: brightness(95%);
+            transition: filter 0.3s ease;
+        }
+        .card-img-top:hover {
+            filter: brightness(105%);
         }
         .btn-primary {
             background: linear-gradient(135deg, #007bff, #0056b3);
             border: none;
-            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.5);
+            transition: transform 0.3s;
             font-weight: bold;
         }
         .btn-primary:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         .btn-danger {
             background: linear-gradient(135deg, #dc3545, #a71d2a);
             border: none;
-            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.5);
+            transition: transform 0.3s;
             font-weight: bold;
         }
         .btn-danger:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         .btn-warning {
             background: linear-gradient(135deg, #ffc107, #d39e00);
             border: none;
-            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.5);
+            transition: transform 0.3s;
             font-weight: bold;
         }
         .btn-warning:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         .container {
             flex: 1;
         }
         footer {
-            background: #007bff;
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: #fff;
             text-align: center;
             padding: 1rem 0;
             margin-top: auto;
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);
         }
         #categoryButtons button {
             margin-right: 10px;
@@ -80,6 +88,12 @@
             color: #333;
             border: 1px solid #007bff;
             font-weight: bold;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+        #categoryButtons button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.4);
         }
         #categoryButtons button.btn-primary {
             background-color: #007bff;
@@ -88,10 +102,15 @@
         }
         .card-title {
             font-weight: bold;
+            color: #0056b3;
+            transition: color 0.3s;
+        }
+        .card-title:hover {
+            color: #004080;
         }
     </style>
 </head>
-<body class="p-4">
+<body class="p-4" id="adminContent" style="display:none;">
 
 <div class="container">
     <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite - Admin</h2>
@@ -130,54 +149,21 @@
     <div id="assetContainer" class="row row-cols-1 row-cols-md-4 g-3"></div>
 </div>
 
-<!-- Modal chỉnh sửa asset -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa Asset</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editAssetForm">
-                    <input type="hidden" id="editIndex">
-                    <div class="mb-3">
-                        <label for="editName" class="form-label">Tên Asset</label>
-                        <input type="text" class="form-control" id="editName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editDesc" class="form-label">Mô tả</label>
-                        <input type="text" class="form-control" id="editDesc" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editImage" class="form-label">URL Ảnh</label>
-                        <input type="url" class="form-control" id="editImage" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editDownload" class="form-label">URL Tải Xuống</label>
-                        <input type="url" class="form-control" id="editDownload" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editCategory" class="form-label">Danh mục</label>
-                        <select id="editCategory" class="form-select" required>
-                            <option value="3D">3D</option>
-                            <option value="2D">2D</option>
-                            <option value="UI">UI</option>
-                            <option value="Animation">Animation</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">💾 Cập nhật</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer>
+<footer style="position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(135deg, #007bff, #0056b3); color: #fff; text-align: center; padding: 1rem 0; box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);">
     &copy; 2024 Unity Asset Store Lite | Powered by ChatGPT 4.0 🚀
 </footer>
 
+
 <script>
+    // Kiểm tra mật khẩu
+    const password = prompt("🔐 Vui lòng nhập mật khẩu admin:");
+    if (password === "admin123") {
+        document.getElementById("adminContent").style.display = "block";
+    } else {
+        alert("🚫 Mật khẩu không đúng! Quay lại trang chính.");
+        window.location.href = "/";
+    }
+
     let assets = JSON.parse(localStorage.getItem('assets')) || [];
     const assetContainer = document.getElementById('assetContainer');
 
@@ -195,7 +181,7 @@
                 <div class="col mb-4">
                     <div class="card">
                         <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <h6 class="card-title">${asset.name}</h6>
                             <p class="card-text"><small class="text-muted">Danh mục: ${asset.category}</small></p>
                             <button class="btn btn-warning btn-sm" onclick="openEditModal(${index})">✏️ Sửa</button>
@@ -216,23 +202,6 @@
         document.getElementById('editCategory').value = asset.category;
         new bootstrap.Modal(document.getElementById('editModal')).show();
     }
-
-    document.getElementById('editAssetForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const index = document.getElementById('editIndex').value;
-        assets[index] = {
-            ...assets[index],
-            name: document.getElementById('editName').value,
-            description: document.getElementById('editDesc').value,
-            image: document.getElementById('editImage').value,
-            download: document.getElementById('editDownload').value,
-            category: document.getElementById('editCategory').value
-        };
-        localStorage.setItem('assets', JSON.stringify(assets));
-        renderAssets();
-        bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
-        alert('🔧 Asset đã được cập nhật thành công!');
-    });
 
     function deleteAsset(index) {
         if (confirm('🗑️ Bạn có chắc chắn muốn xóa asset này không?')) {

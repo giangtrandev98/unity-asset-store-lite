@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "Fantasy Sword",
+        "description": "A high-quality fantasy sword for RPGs.",
+        "image": "https://drive.google.com/file/d/1u2w-DGAZTUroeWoI6IkGHVUfSWmmxz4d/view?usp=sharing",
+        "download": "https://drive.google.com/uc?id=YOUR_FILE_ID",
+        "category": "3D"
+    },
+    {
+        "id": 2,
+        "name": "Pixel Platformer Tileset",
+        "description": "A colorful tileset for platformer games.",
+        "image": "https://drive.google.com/file/d/1u2w-DGAZTUroeWoI6IkGHVUfSWmmxz4d/view?usp=sharing",
+        "download": "https://drive.google.com/uc?id=YOUR_FILE_ID",
+        "category": "2D"
+    }
+]
