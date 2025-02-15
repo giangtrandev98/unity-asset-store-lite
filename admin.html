@@ -16,101 +16,49 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: background 0.5s ease;
         }
         .card {
             border: none;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             background: #fff;
         }
         .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px);
         }
         .card-img-top {
             height: 150px;
             object-fit: cover;
-            border-bottom: 3px solid #007bff;
-            filter: brightness(95%);
-            transition: filter 0.3s ease;
-        }
-        .card-img-top:hover {
-            filter: brightness(105%);
+            border-bottom: 2px solid #007bff;
         }
         .btn-primary {
             background: linear-gradient(135deg, #007bff, #0056b3);
             border: none;
-            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.5);
-            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+            transition: transform 0.2s;
             font-weight: bold;
         }
         .btn-primary:hover {
-            transform: scale(1.1);
-        }
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545, #a71d2a);
-            border: none;
-            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.5);
-            transition: transform 0.3s;
-            font-weight: bold;
-        }
-        .btn-danger:hover {
-            transform: scale(1.1);
-        }
-        .btn-warning {
-            background: linear-gradient(135deg, #ffc107, #d39e00);
-            border: none;
-            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.5);
-            transition: transform 0.3s;
-            font-weight: bold;
-        }
-        .btn-warning:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         .container {
             flex: 1;
         }
         footer {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: #007bff;
             color: #fff;
             text-align: center;
             padding: 1rem 0;
             margin-top: auto;
-            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);
-        }
-        #categoryButtons button {
-            margin-right: 10px;
-            margin-bottom: 10px;
-            background-color: #cfe2ff;
-            color: #333;
-            border: 1px solid #007bff;
-            font-weight: bold;
-            border-radius: 12px;
-            transition: transform 0.3s;
-        }
-        #categoryButtons button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.4);
-        }
-        #categoryButtons button.btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            font-weight: bold;
         }
         .card-title {
             font-weight: bold;
-            color: #0056b3;
-            transition: color 0.3s;
-        }
-        .card-title:hover {
-            color: #004080;
         }
     </style>
 </head>
-<body class="p-4" id="adminContent" style="display:none;">
+<body class="p-4">
 
 <div class="container">
     <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite - Admin</h2>
@@ -149,71 +97,110 @@
     <div id="assetContainer" class="row row-cols-1 row-cols-md-4 g-3"></div>
 </div>
 
-<footer style="position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(135deg, #007bff, #0056b3); color: #fff; text-align: center; padding: 1rem 0; box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);">
+<footer>
     &copy; 2024 Unity Asset Store Lite | Powered by ChatGPT 4.0 🚀
 </footer>
 
-
 <script>
-    // Kiểm tra mật khẩu
-    const password = prompt("🔐 Vui lòng nhập mật khẩu admin:");
-    if (password === "admin123") {
-        document.getElementById("adminContent").style.display = "block";
-    } else {
-        alert("🚫 Mật khẩu không đúng! Quay lại trang chính.");
-        window.location.href = "/";
-    }
-
-    let assets = JSON.parse(localStorage.getItem('assets')) || [];
-    const assetContainer = document.getElementById('assetContainer');
-
-    function renderAssets() {
-        assetContainer.innerHTML = '';
-        assets.forEach((asset, index) => {
-            let imageUrl = asset.image;
-            const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
-            const match = imageUrl.match(googleDrivePattern);
-            if (match) {
-                const fileId = match[1];
-                imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    async function loadAssets() {
+        try {
+            const response = await fetch('assets.json');
+            if (!response.ok) {
+                throw new Error('Không thể tải assets.json');
             }
-            assetContainer.innerHTML += `
-                <div class="col mb-4">
-                    <div class="card">
-                        <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
-                        <div class="card-body text-center">
-                            <h6 class="card-title">${asset.name}</h6>
-                            <p class="card-text"><small class="text-muted">Danh mục: ${asset.category}</small></p>
-                            <button class="btn btn-warning btn-sm" onclick="openEditModal(${index})">✏️ Sửa</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteAsset(${index})">🗑️ Xóa</button>
-                        </div>
-                    </div>
-                </div>`;
-        });
-    }
+            let assets = await response.json();
+            const assetContainer = document.getElementById('assetContainer');
 
-    function openEditModal(index) {
-        const asset = assets[index];
-        document.getElementById('editIndex').value = index;
-        document.getElementById('editName').value = asset.name;
-        document.getElementById('editDesc').value = asset.description;
-        document.getElementById('editImage').value = asset.image;
-        document.getElementById('editDownload').value = asset.download;
-        document.getElementById('editCategory').value = asset.category;
-        new bootstrap.Modal(document.getElementById('editModal')).show();
-    }
+            function renderAssets() {
+                assetContainer.innerHTML = '';
+                assets.forEach((asset, index) => {
+                    let imageUrl = asset.image;
+                    const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
+                    const match = imageUrl.match(googleDrivePattern);
+                    if (match) {
+                        const fileId = match[1];
+                        imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+                    }
 
-    function deleteAsset(index) {
-        if (confirm('🗑️ Bạn có chắc chắn muốn xóa asset này không?')) {
-            assets.splice(index, 1);
-            localStorage.setItem('assets', JSON.stringify(assets));
-            renderAssets();
-            alert('✅ Asset đã được xóa thành công!');
+                    assetContainer.innerHTML += `
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">${asset.name}</h6>
+                                    <p class="card-text"><small class="text-muted">Danh mục: ${asset.category}</small></p>
+                                    <button class="btn btn-warning btn-sm" onclick="editAsset(${index})">✏️ Sửa</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteAsset(${index})">🗑️ Xóa</button>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+            }
+
+            window.addEventListener('DOMContentLoaded', renderAssets);
+
+            document.getElementById('addAssetForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const newAsset = {
+                    id: Date.now(),
+                    name: document.getElementById('assetName').value,
+                    description: document.getElementById('assetDesc').value,
+                    image: document.getElementById('assetImage').value,
+                    download: document.getElementById('assetDownload').value,
+                    category: document.getElementById('assetCategory').value
+                };
+                assets.push(newAsset);
+                await saveAssets(assets);
+                renderAssets();
+                this.reset();
+            });
+
+            window.editAsset = async function(index) {
+                const asset = assets[index];
+                const newName = prompt('Nhập tên mới:', asset.name);
+                const newDesc = prompt('Nhập mô tả mới:', asset.description);
+                const newImage = prompt('Nhập URL ảnh mới:', asset.image);
+                const newDownload = prompt('Nhập URL tải mới:', asset.download);
+                const newCategory = prompt('Nhập danh mục mới:', asset.category);
+                if (newName && newDesc && newImage && newDownload && newCategory) {
+                    assets[index] = {
+                        ...asset,
+                        name: newName,
+                        description: newDesc,
+                        image: newImage,
+                        download: newDownload,
+                        category: newCategory
+                    };
+                    await saveAssets(assets);
+                    renderAssets();
+                }
+            };
+
+            window.deleteAsset = async function(index) {
+                if (confirm('Bạn có chắc chắn muốn xóa asset này?')) {
+                    assets.splice(index, 1);
+                    await saveAssets(assets);
+                    renderAssets();
+                }
+            };
+
+            async function saveAssets(data) {
+                await fetch('assets.json', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            }
+
+        } catch (error) {
+            console.error('Không thể tải hoặc cập nhật dữ liệu assets:', error);
+            document.getElementById('assetContainer').innerHTML = '<p class="text-center text-danger">⚠️ Lỗi khi tải danh sách asset.</p>';
         }
     }
 
-    renderAssets();
+    loadAssets();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
