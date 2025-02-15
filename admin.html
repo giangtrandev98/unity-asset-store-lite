@@ -141,6 +141,7 @@
                 throw new Error('Không thể tải assets.json');
             }
             let assets = await response.json();
+            localStorage.setItem('assets', JSON.stringify(assets));
 
             const assetContainer = document.getElementById('assetContainer');
 
@@ -183,6 +184,7 @@
                     category: document.getElementById('assetCategory').value
                 };
                 assets.push(newAsset);
+                localStorage.setItem('assets', JSON.stringify(assets));
                 renderAssets();
                 this.reset();
             });
@@ -203,6 +205,7 @@
                         download: newDownload,
                         category: newCategory
                     };
+                    localStorage.setItem('assets', JSON.stringify(assets));
                     renderAssets();
                 }
             };
@@ -210,6 +213,7 @@
             window.deleteAsset = function(index) {
                 if (confirm('Bạn có chắc chắn muốn xóa asset này?')) {
                     assets.splice(index, 1);
+                    localStorage.setItem('assets', JSON.stringify(assets));
                     renderAssets();
                 }
             };
