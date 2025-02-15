@@ -69,12 +69,31 @@
         .card-title {
             font-weight: bold;
         }
+        .ad-banner {
+            margin: 20px 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="p-4">
 
 <div class="container">
     <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite</h2>
+
+    <!-- Quảng cáo -->
+    <div class="ad-banner">
+        <!-- Google Ads placeholder -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXX"
+            data-ad-slot="1234567890"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Khu vực tìm kiếm và phân loại bằng nút -->
     <div id="filterSection" class="mb-4">
@@ -97,72 +116,64 @@
 </footer>
 
 <script>
-    async function loadAssets() {
-        try {
-            const response = await fetch('assets.json');
-            if (!response.ok) {
-                throw new Error('Không thể tải assets.json');
-            }
-            const assets = await response.json();
+    // Lấy dữ liệu asset từ localStorage
+    const assets = JSON.parse(localStorage.getItem('assets')) || [];
+    const assetContainer = document.getElementById('assetContainer');
+    const searchInput = document.getElementById('searchInput');
+    const categoryButtons = document.querySelectorAll('#categoryButtons button');
 
-            const assetContainer = document.getElementById('assetContainer');
-            const searchInput = document.getElementById('searchInput');
-            const categoryButtons = document.querySelectorAll('#categoryButtons button');
-            let currentCategory = 'all';
+    let currentCategory = 'all';
 
-            function renderAssets(filterText = '', category = 'all') {
-                assetContainer.innerHTML = '';
-                assets.filter(asset => {
-                    const matchesText = asset.name.toLowerCase().includes(filterText.toLowerCase()) || asset.description.toLowerCase().includes(filterText.toLowerCase());
-                    const matchesCategory = category === 'all' || asset.category === category;
-                    return matchesText && matchesCategory;
-                }).forEach(asset => {
-                    let imageUrl = asset.image;
-                    const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
-                    const match = imageUrl.match(googleDrivePattern);
-                    if (match) {
-                        const fileId = match[1];
-                        imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
-                    }
+    function renderAssets(filterText = '', category = 'all') {
+        assetContainer.innerHTML = '';
 
-                    assetContainer.innerHTML += `
-                        <div class="col mb-4">
-                            <div class="card">
-                                <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
-                                <div class="card-body">
-                                    <h6 class="card-title">${asset.name}</h6>
-                                    <p class="card-text"><small class="text-muted">${asset.category || 'Không xác định'}</small></p>
-                                    <a href="asset-detail.html?id=${asset.id}" class="btn btn-primary btn-sm">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>`;
-                });
+        assets.filter(asset => {
+            const matchesText = asset.name.toLowerCase().includes(filterText.toLowerCase()) || asset.description.toLowerCase().includes(filterText.toLowerCase());
+            const matchesCategory = category === 'all' || asset.category === category;
+            return matchesText && matchesCategory;
+        }).forEach(asset => {
+            let imageUrl = asset.image;
+            const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
+            const match = imageUrl.match(googleDrivePattern);
+            if (match) {
+                const fileId = match[1];
+                imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
             }
 
-            // Sự kiện tìm kiếm
-            searchInput.addEventListener('input', () => {
-                const searchText = searchInput.value;
-                renderAssets(searchText, currentCategory);
-            });
-
-            // Sự kiện cho các nút danh mục
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    currentCategory = button.getAttribute('data-category');
-                    renderAssets(searchInput.value, currentCategory);
-                    categoryButtons.forEach(btn => btn.classList.remove('btn-primary'));
-                    button.classList.add('btn-primary');
-                });
-            });
-
-            renderAssets();
-        } catch (error) {
-            console.error('Không thể tải dữ liệu assets:', error);
-            document.getElementById('assetContainer').innerHTML = '<p class="text-center text-danger">⚠️ Lỗi khi tải danh sách asset.</p>';
-        }
+            assetContainer.innerHTML += `
+                <div class="col mb-4">
+                    <div class="card">
+                        <img src="${imageUrl}" class="card-img-top" alt="${asset.name}">
+                        <div class="card-body">
+                            <h6 class="card-title">${asset.name}</h6>
+                            <p class="card-text"><small class="text-muted">${asset.category || 'Không xác định'}</small></p>
+                            <a href="asset-detail.html?id=${asset.id}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>`;
+        });
     }
 
-    window.addEventListener('DOMContentLoaded', loadAssets);
+    // Sự kiện tìm kiếm
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value;
+        renderAssets(searchText, currentCategory);
+    });
+
+    // Sự kiện cho các nút danh mục
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            currentCategory = button.getAttribute('data-category');
+            renderAssets(searchInput.value, currentCategory);
+
+            // Cập nhật trạng thái nút
+            categoryButtons.forEach(btn => btn.classList.remove('btn-primary'));
+            button.classList.add('btn-primary');
+        });
+    });
+
+    // Hiển thị ban đầu
+    renderAssets();
 </script>
 
 </body>
