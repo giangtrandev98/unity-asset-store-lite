@@ -43,6 +43,26 @@
         .btn-primary:hover {
             transform: scale(1.05);
         }
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #a71d2a);
+            border: none;
+            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+        .btn-danger:hover {
+            transform: scale(1.05);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #d39e00);
+            border: none;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.3);
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+        .btn-warning:hover {
+            transform: scale(1.05);
+        }
         .container {
             flex: 1;
         }
@@ -123,7 +143,7 @@
     function renderAssets() {
         assetContainer.innerHTML = '';
 
-        assets.forEach(asset => {
+        assets.forEach((asset, index) => {
             let imageUrl = asset.image;
             const googleDrivePattern = /^https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/;
             const match = imageUrl.match(googleDrivePattern);
@@ -139,7 +159,8 @@
                         <div class="card-body">
                             <h6 class="card-title">${asset.name}</h6>
                             <p class="card-text"><small class="text-muted">Danh mục: ${asset.category || 'Không xác định'}</small></p>
-                            <a href="asset-detail.html?id=${asset.id}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                            <button class="btn btn-warning btn-sm" onclick="editAsset(${index})">✏️ Sửa</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteAsset(${index})">🗑️ Xóa</button>
                         </div>
                     </div>
                 </div>`;
@@ -170,6 +191,42 @@
         addAssetForm.reset();
         alert('🎉 Asset đã được thêm thành công với danh mục: ' + category);
     });
+
+    // Chỉnh sửa asset
+    function editAsset(index) {
+        const asset = assets[index];
+        const newName = prompt('Nhập tên mới:', asset.name);
+        const newDesc = prompt('Nhập mô tả mới:', asset.description);
+        const newImage = prompt('Nhập URL ảnh mới:', asset.image);
+        const newDownload = prompt('Nhập URL tải xuống mới:', asset.download);
+        const newCategory = prompt('Nhập danh mục mới (3D, 2D, UI, Animation):', asset.category);
+
+        if (newName && newDesc && newImage && newDownload && newCategory) {
+            assets[index] = {
+                ...asset,
+                name: newName,
+                description: newDesc,
+                image: newImage,
+                download: newDownload,
+                category: newCategory
+            };
+            localStorage.setItem('assets', JSON.stringify(assets));
+            renderAssets();
+            alert('🔧 Asset đã được cập nhật thành công!');
+        } else {
+            alert('⚠️ Cập nhật thất bại. Hãy nhập đầy đủ thông tin!');
+        }
+    }
+
+    // Xóa asset
+    function deleteAsset(index) {
+        if (confirm('🗑️ Bạn có chắc chắn muốn xóa asset này không?')) {
+            assets.splice(index, 1);
+            localStorage.setItem('assets', JSON.stringify(assets));
+            renderAssets();
+            alert('✅ Asset đã được xóa thành công!');
+        }
+    }
 
     // Hiển thị ban đầu
     renderAssets();
