@@ -16,49 +16,82 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background 0.5s ease;
         }
         .card {
             border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             background: #fff;
         }
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
         }
         .card-img-top {
             height: 150px;
             object-fit: cover;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 3px solid #007bff;
+            filter: brightness(95%);
+            transition: filter 0.3s ease;
+        }
+        .card-img-top:hover {
+            filter: brightness(105%);
         }
         .btn-primary {
             background: linear-gradient(135deg, #007bff, #0056b3);
             border: none;
-            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.5);
+            transition: transform 0.3s;
             font-weight: bold;
         }
         .btn-primary:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #a71d2a);
+            border: none;
+            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.5);
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+        .btn-danger:hover {
+            transform: scale(1.1);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #d39e00);
+            border: none;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.5);
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+        .btn-warning:hover {
+            transform: scale(1.1);
         }
         .container {
             flex: 1;
         }
         footer {
-            background: #007bff;
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: #fff;
             text-align: center;
             padding: 1rem 0;
             margin-top: auto;
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);
         }
         .card-title {
             font-weight: bold;
+            color: #0056b3;
+            transition: color 0.3s;
+        }
+        .card-title:hover {
+            color: #004080;
         }
     </style>
 </head>
-<body class="p-4">
+<body class="p-4" id="adminContent" style="display:none;">
 
 <div class="container">
     <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite - Admin</h2>
@@ -150,7 +183,6 @@
                     category: document.getElementById('assetCategory').value
                 };
                 assets.push(newAsset);
-                await saveAssets(assets);
                 renderAssets();
                 this.reset();
             });
@@ -171,7 +203,6 @@
                         download: newDownload,
                         category: newCategory
                     };
-                    await saveAssets(assets);
                     renderAssets();
                 }
             };
@@ -179,20 +210,9 @@
             window.deleteAsset = async function(index) {
                 if (confirm('Bạn có chắc chắn muốn xóa asset này?')) {
                     assets.splice(index, 1);
-                    await saveAssets(assets);
                     renderAssets();
                 }
             };
-
-            async function saveAssets(data) {
-                await fetch('assets.json', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-            }
 
         } catch (error) {
             console.error('Không thể tải hoặc cập nhật dữ liệu assets:', error);
