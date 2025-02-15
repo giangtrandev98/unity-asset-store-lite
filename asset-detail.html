@@ -37,10 +37,20 @@
             border-radius: 10px;
             text-decoration: none;
             transition: transform 0.3s;
+            display: none;
         }
         .btn-download:hover {
             transform: scale(1.05);
             color: #fff;
+        }
+        #adMessage {
+            margin: 20px 0;
+            color: #856404;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -50,7 +60,11 @@
         <img id="assetImage" src="" alt="Asset Image">
         <p id="assetDescription">Đang tải...</p>
         <p><strong>Danh mục:</strong> <span id="assetCategory">Đang tải...</span></p>
-        <a id="assetDownload" href="#" class="btn-download" target="_blank">Tải xuống</a>
+
+        <!-- Quảng cáo và bộ đếm -->
+        <div id="adMessage">⏳ Vui lòng chờ <span id="countdown">30</span> giây để mở khóa nút tải xuống...</div>
+
+        <a id="assetDownload" href="#" class="btn-download" target="_blank">🔽 Tải xuống</a>
     </div>
 
     <script>
@@ -67,6 +81,25 @@
                     document.getElementById('assetDescription').innerText = asset.description;
                     document.getElementById('assetCategory').innerText = asset.category;
                     document.getElementById('assetDownload').href = asset.download;
+
+                    // Bắt đầu bộ đếm thời gian 30 giây
+                    let timeLeft = 30;
+                    const countdownElement = document.getElementById('countdown');
+                    const downloadButton = document.getElementById('assetDownload');
+                    const adMessage = document.getElementById('adMessage');
+
+                    const timer = setInterval(() => {
+                        timeLeft--;
+                        countdownElement.textContent = timeLeft;
+
+                        if (timeLeft <= 0) {
+                            clearInterval(timer);
+                            downloadButton.style.display = 'inline-block';
+                            adMessage.style.display = 'none';
+                            alert('✅ Quảng cáo kết thúc! Link tải đã được mở khóa!');
+                        }
+                    }, 1000);
+
                 } else {
                     document.querySelector('.asset-detail').innerHTML = '<p>Không tìm thấy asset!</p>';
                 }
