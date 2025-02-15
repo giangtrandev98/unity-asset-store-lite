@@ -16,6 +16,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         .card {
             border: none;
@@ -75,9 +76,50 @@
             text-align: center;
             width: 60%;
         }
+        .video-ad {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 250px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 100;
+        }
+        .video-ad.left {
+            left: 10px;
+        }
+        .video-ad.right {
+            right: 10px;
+        }
     </style>
 </head>
 <body class="p-4">
+
+<!-- Video Ads bên trái -->
+<div class="video-ad left">
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3940256099942544"
+        data-ad-slot="6300978111"
+        data-ad-format="rectangle"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<!-- Video Ads bên phải -->
+<div class="video-ad right">
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3940256099942544"
+        data-ad-slot="6300978111"
+        data-ad-format="rectangle"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
 
 <div class="container">
     <h2 class="mb-4 text-center">🎨 Unity Asset Store Lite</h2>
@@ -100,8 +142,15 @@
 
 <!-- Quảng cáo ngay trên footer -->
 <div class="ad-banner">
-    <!-- Google Ads test -->
-    <iframe src="https://www.google.com/adsense/start/" style="width:100%; height:150px; border:none; background-color:transparent;"></iframe>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3940256099942544"
+        data-ad-slot="6300978111"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 </div>
 
 <footer>
