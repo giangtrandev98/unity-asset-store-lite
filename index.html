@@ -168,15 +168,6 @@
 
 <script>
     // Lấy dữ liệu asset từ assets.json
-    // Tải dữ liệu mới từ assets.json với cache-busting
-    fetch(`assets.json?v=${new Date().getTime()}`)
-    .then(response => response.json())
-    .then(data => {
-        localStorage.setItem('assets', JSON.stringify(data));
-        location.reload(); // Tải lại trang sau khi cập nhật dữ liệu
-    })
-    .catch(error => console.error('Lỗi khi tải dữ liệu assets:', error));
-
     let assets = [];
     fetch('assets.json')
         .then(response => response.json())
