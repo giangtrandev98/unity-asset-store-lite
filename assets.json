@@ -60,4 +60,31 @@
         "download": "https://drive.google.com/file/d/1X3Yy77SbpDQ5h7rkR3XpsD2yWVFI22hu/view?usp=sharing",
         "category": "3D"
     }
+    ,
+    {
+        "id": 8,
+        "name": "RPG Monster Wave PBR",
+        "description": "These assets are great for games like monster collection, strategy, casual games, educational games, tower defense, RPGs, and more.",
+        "image": "https://drive.google.com/file/d/1u4cI_8-Y_iQ3ici0BKBxw3X-uGambQ21/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1NiREYvmYzZfv4leyXdvq4SQrbERFL6GE/view?usp=sharing",
+        "category": "3D"
+    }
+    ,
+    {
+        "id": 9,
+        "name": "RPG Monster Wave 2 PBR",
+        "description": "These assets are great for games like monster collection, strategy, casual games, educational games, tower defense, RPGs, and more.",
+        "image": "https://drive.google.com/file/d/1VNu3PUgEERcWMNbMWIoPLjQNgpXsQ4TK/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/184eQOzMgStObnseheRZNWwpIsGhEdgWv/view?usp=sharing",
+        "category": "3D"
+    }
+    ,
+    {
+        "id": 10,
+        "name": "RPG Monster Wave 3 PBR",
+        "description": "These assets are great for games like monster collection, strategy, casual games, educational games, tower defense, RPGs, and more.",
+        "image": "https://drive.google.com/file/d/1KS7WYsFhjQ_HaLbmWDzlvHsIjOfZ17SH/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1yBawU89fsajIrYk95U0S-bfpdhGOYH0W/view?usp=sharing",
+        "category": "3D"
+    }
 ]
