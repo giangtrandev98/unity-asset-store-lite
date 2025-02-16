@@ -60,6 +60,9 @@
         <p id="assetDescription">Đang tải...</p>
         <p><strong>Danh mục:</strong> <span id="assetCategory">Đang tải...</span></p>
 
+        <p><strong>🔗 Asset Origin:</strong> <a id="assetOrigin" href="#" target="_blank" rel="noopener noreferrer">Đang tải...</a></p>
+
+
         <!-- Quảng cáo và bộ đếm -->
         <div id="adMessage">⏳ Vui lòng chờ <span id="countdown">30</span> giây để mở khóa nút tải xuống...</div>
 
@@ -90,6 +93,17 @@
                     document.getElementById('assetDescription').innerText = asset.description;
                     document.getElementById('assetCategory').innerText = asset.category;
                     document.getElementById('assetDownload').href = asset.download;
+
+                    // Hiển thị link gốc của asset (Asset Origin)
+                    const originElement = document.getElementById('assetOrigin');
+                    if (asset.origin) {
+                    originElement.href = asset.origin;
+                    originElement.textContent = asset.origin;
+                    } else {
+                     originElement.textContent = "Không có link gốc";
+                    originElement.removeAttribute('href');
+                    }
+
 
                     // Bắt đầu bộ đếm thời gian 30 giây
                     let timeLeft = 30;
