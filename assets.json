@@ -97,4 +97,14 @@
         "category": "3D",
         "origin": "https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-wave-3-pbr-253591"
     }
+    ,
+    {
+        "id": 11,
+        "name": "Robots Ultimate Pack 02 Cute",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/1d1aXdqBQj1uLyd6ADhU5E09f6mnrQqAf/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1aQagu4Tf8gDCsvtUyQt9mqOCl7NB51th/view?usp=sharing",
+        "category": "3D",
+        "origin": "https://assetstore.unity.com/packages/3d/characters/robots/robots-ultimate-pack-02-cute-series-213777"
+    }
 ]
