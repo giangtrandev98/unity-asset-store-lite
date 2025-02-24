@@ -137,4 +137,14 @@
         "category": "VFX",
         "origin": "https://assetstore.unity.com/packages/vfx/particles/master-stylized-fx-272584"
     }
+    ,
+    {
+        "id": 15,
+        "name": "Mega Animations Pack",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/11qVg3m9bB3VPP_Nnhz3eoYnPxBPI9lJz/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1a3GqYBAdFTzRXEkVx19ULHUqn3oAvHrP/view?usp=sharing",
+        "category": "Animation",
+        "origin": "https://assetstore.unity.com/packages/3d/animations/mega-animations-pack-162341"
+    }
 ]
