@@ -117,4 +117,24 @@
         "category": "VFX",
         "origin": "https://assetstore.unity.com/packages/vfx/particles/epic-toon-fx-57772"
     }
+    ,
+    {
+        "id": 13,
+        "name": "All In 1 Vfx Toolkit",
+        "description": "Built-In,URP",
+        "image": "https://drive.google.com/file/d/12a04BZ_b__gInQCZXayT9goeZGWiy_r-/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1NRZcAJ5nqX_BEo65-I0rB2Uf57gH8kO1/view?usp=sharing",
+        "category": "VFX",
+        "origin": "https://assetstore.unity.com/packages/vfx/all-in-1-vfx-toolkit-206665"
+    }
+    ,
+    {
+        "id": 14,
+        "name": "Master Stylized FX",
+        "description": "Built-In,URP",
+        "image": "https://drive.google.com/file/d/1S1se-aYi75Im0PFQtpUONu-_fVCXz_YN/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1B2q202uEo-6Scw_ZxqTrQ0GO-IScydS6/view?usp=sharing",
+        "category": "VFX",
+        "origin": "https://assetstore.unity.com/packages/vfx/particles/master-stylized-fx-272584"
+    }
 ]
