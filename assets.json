@@ -147,4 +147,34 @@
         "category": "Animation",
         "origin": "https://assetstore.unity.com/packages/3d/animations/mega-animations-pack-162341"
     }
+    ,
+    {
+        "id": 16,
+        "name": "100 Special Skills Effects Pack",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/11mHomwHyNUDV3YOZxdYHRAS0rjlYdYXF/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1RHbhi5kiqtoDMuk2fLb1uCXcboO7Jm0_/view?usp=sharing",
+        "category": "VFX",
+        "origin": "https://assetstore.unity.com/packages/vfx/particles/spells/100-special-skills-effects-pack-171146"
+    }
+    ,
+    {
+        "id": 17,
+        "name": "Ground Lines Magic VFX",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/11u2bc2Tfyt2hNyTsnqrmHPACjLDq3jCr/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/19TU9jA2oamlbLj9LFHLn_wRtGzGTdo7V/view?usp=sharing",
+        "category": "VFX",
+        "origin": "https://assetstore.unity.com/packages/vfx/particles/spells/ground-lines-magic-vfx-251745"
+    }
+    ,
+    {
+        "id": 18,
+        "name": "Fantasy environment and enemies 2D",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/10h6zdmcjZ2OF1QZbt-yqmiAlWuh2idKt/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1ub6vSLEKEapEi50RgC9mKFRzXhqYzctp/view?usp=sharing",
+        "category": "2D",
+        "origin": "https://assetstore.unity.com/packages/2d/environments/fantasy-environment-and-enemies-2d-296344"
+    }
 ]
