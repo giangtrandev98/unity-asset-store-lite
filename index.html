@@ -100,14 +100,19 @@
         }
         .pagination {
     position: fixed;
-    bottom: 50px; /* Đưa xuống sát trên footer */
+    bottom: 50px; /* Giữ cố định ngay trên footer */
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
-    background: rgba(255, 255, 255, 0.8); /* Làm nền nhẹ để nổi bật */
-    padding: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
     border-radius: 10px;
+    width: auto; /* Không bị co lại */
+    min-width: 250px; /* Đảm bảo chiều rộng tối thiểu */
+    text-align: center;
+    white-space: nowrap; /* Giữ nút không bị thu nhỏ */
 }
+
 
     </style>
 </head>
