@@ -217,4 +217,14 @@
         "category": "UI",
         "origin": "https://assetstore.unity.com/packages/2d/gui/gui-pro-survival-clean-194741"
     }
+    ,
+    {
+        "id": 23,
+        "name": "Anime Stylized VFX URP",
+        "description": "URP",
+        "image": "https://drive.google.com/file/d/14DJpr8EQmzckQbBhAC7h-43f0lGISv3C/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1N8Vv7Wi33x_u5ZO3l61wgLJpCcV3X5uh/view?usp=sharing",
+        "category": "VFX",
+        "origin": "https://assetstore.unity.com/packages/vfx/anime-stylized-vfx-urp-229620"
+    }
 ]
