@@ -177,4 +177,34 @@
         "category": "2D",
         "origin": "https://assetstore.unity.com/packages/2d/environments/fantasy-environment-and-enemies-2d-296344"
     }
+    ,
+    {
+        "id": 19,
+        "name": "GUI Pro - Fantasy RPG",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/1jYFbMlIovp2Uf-SKSMDhnf6SGO6y2y3l/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/123uToE-yqWwlVbyTM0cdcrW9xaB8x2_W/view?usp=sharing",
+        "category": "UI",
+        "origin": "https://assetstore.unity.com/packages/2d/gui/gui-pro-fantasy-rpg-170168"
+    }
+    ,
+    {
+        "id": 20,
+        "name": "GUI - Casual Fantasy",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/1kEb5_4n3njH9a14-uWBQOOB6hULMCHkw/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1AGW1Cw1ZBP72SyyHHbCaJXpQDMZJXSZt/view?usp=sharing",
+        "category": "UI",
+        "origin": "https://assetstore.unity.com/packages/2d/gui/gui-casual-fantasy-265651"
+    }
+    ,
+    {
+        "id": 21,
+        "name": "Animal World GUI Pack",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/1eyxndGgItulH1091TDSQ7rVLwTU8LXan/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1PT4Wy3PWKXby01YHmBEHxfI9_nQuMN83/view?usp=sharing",
+        "category": "UI",
+        "origin": "https://assetstore.unity.com/search#q=Animal%20World%20GUI%20Pack"
+    }
 ]
