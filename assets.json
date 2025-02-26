@@ -205,6 +205,16 @@
         "image": "https://drive.google.com/file/d/1eyxndGgItulH1091TDSQ7rVLwTU8LXan/view?usp=sharing",
         "download": "https://drive.google.com/file/d/1PT4Wy3PWKXby01YHmBEHxfI9_nQuMN83/view?usp=sharing",
         "category": "UI",
-        "origin": "https://assetstore.unity.com/search#q=Animal%20World%20GUI%20Pack"
+        "origin": "https://assetstore.unity.com/packages/2d/gui/animal-world-gui-pack-62974"
+    }
+    ,
+    {
+        "id": 22,
+        "name": "GUI Pro - Survival Clean",
+        "description": "Built-In,URP,HDR",
+        "image": "https://drive.google.com/file/d/1Ls2XQ9R7d-dch6ekQL_jx2POhF3Oyh3_/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1zHAxLmbrT_8fhtLjn8UVmUf0fXkkI3qz/view?usp=sharing",
+        "category": "UI",
+        "origin": "https://assetstore.unity.com/packages/2d/gui/gui-pro-survival-clean-194741"
     }
 ]
