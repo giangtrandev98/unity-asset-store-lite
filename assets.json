@@ -1,5 +1,14 @@
 [
     {
+        "id": -3,
+        "name": "Linework: Outlines and Edge Detection",
+        "description": "URP",
+        "image": "https://drive.google.com/file/d/1rtPtJ7FlbRBXeBxIXlAYyhoVPHXthcLu/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1DgCfWVdm6pB6y6KXkQbZbQf77gyDzw5V/view?usp=sharing",
+        "category": "Shaders",
+        "origin": "https://assetstore.unity.com/packages/vfx/shaders/linework-outlines-and-edge-detection-294140"
+    },
+    {
         "id": -2,
         "name": "Job Stickmans Character Pack",
         "description": "Built-In   -   URP   -   HDR",
