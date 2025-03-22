@@ -1,5 +1,23 @@
 [
     {
+        "id": -2,
+        "name": "Job Stickmans Character Pack",
+        "description": "Built-In   -   URP   -   HDR",
+        "image": "https://drive.google.com/file/d/13jzhdfM9SnypNS71Ubp8JQEq3H0tZfKB/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1pHnM0QTW-hsSsX7ntEndwLDls6GNT8Cg/view?usp=sharing",
+        "category": "3D",
+        "origin": "https://assetstore.unity.com/packages/3d/characters/job-stickmans-character-pack-255278"
+    },
+    {
+        "id": -1,
+        "name": "Stickman Civilian Characters Pack",
+        "description": "Built-In   -   URP   -   HDR",
+        "image": "https://drive.google.com/file/d/16PPn2kg5KCheRVq6hu4LtPD611KSiCbY/view?usp=sharing",
+        "download": "https://drive.google.com/file/d/1wablSnAP17gxcNXSqq7p8t9Ivb_W1lTl/view?usp=sharing",
+        "category": "3D",
+        "origin": "https://assetstore.unity.com/packages/3d/characters/stickman-civilian-characters-pack-257618"
+    },
+    {
         "id": 0,
         "name": "Male Ninja Modular Pack Cute Series",
         "description": "Built-In   -   URP",
